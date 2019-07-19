@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_trip/modal/CommonModel.dart';
+import 'package:flutter_trip/util/navigator_util.dart';
+import 'package:flutter_trip/widget/webview.dart';
 
 class BannerWidget extends StatelessWidget {
   final List<CommonModel> bannerList;
@@ -20,8 +22,11 @@ class BannerWidget extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               CommonModel model = bannerList[index];
-              print(model.url);
-//              Navigator.push(context, MaterialPageRoute(builder: (context)=>))
+              NavigatorUtil.push(
+                context,
+                WebView(url: model.url,statusBarColor: model.statusBarColor, title: model.title, hideAppBar: model.hideAppBar, backForbid: false
+                ),
+              );
             },
             child: Image.network(bannerList[index].icon,fit: BoxFit.fill),
           );

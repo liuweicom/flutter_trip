@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_trip/modal/CommonModel.dart';
 import 'package:flutter_trip/modal/GridNavItem.dart';
 import 'package:flutter_trip/modal/GridNavModel.dart';
+import 'package:flutter_trip/util/navigator_util.dart';
+import 'package:flutter_trip/widget/webview.dart';
 
 class GridNav extends StatelessWidget {
   final GridNavModel gridNavModel;
@@ -77,6 +79,12 @@ class GridNav extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   print(mainItem.url);
+                  NavigatorUtil.push(
+                    context,
+                    WebView(url: mainItem.url,statusBarColor: mainItem.statusBarColor, title: mainItem.title, hideAppBar: mainItem.hideAppBar
+                    ),
+                  );
+
                 },
                 child: Text(
                   mainItem.title,
@@ -134,6 +142,11 @@ class GridNav extends StatelessWidget {
             ),
             onTap: () {
               print(item1.url);
+              NavigatorUtil.push(
+                context,
+                WebView(url: item1.url,statusBarColor: item1.statusBarColor, title: item1.title, hideAppBar: item1.hideAppBar
+                ),
+              );
             },
           ),
         ),
