@@ -6,6 +6,7 @@ import 'package:flutter_trip/modal/GridNavModel.dart';
 import 'package:flutter_trip/modal/HomeModel.dart';
 import 'package:flutter_trip/modal/SalesBoxModel.dart';
 import 'package:flutter_trip/widget/banner.dart';
+import 'package:flutter_trip/widget/grid_Nav.dart';
 import 'package:flutter_trip/widget/local_nav.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -68,6 +69,12 @@ class _HomePageState extends State<HomePage> {
                 padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
                 child: LocalNav(localNavList: localNavList),
               ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                child: GridNav(gridNavModel: gridNavModel),
+              ),
+
+              Text('我就看看',style: TextStyle(color: Colors.blue),)
             ],
           ),
         ),

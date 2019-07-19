@@ -46,7 +46,7 @@ class LocalNav extends StatelessWidget {
           ),
           Text(
             model.title,
-            style: TextStyle(fontSize: 12),
+            style: TextStyle(fontSize: 12,color: Colors.black,inherit:false),
           ),
         ],
       ),
