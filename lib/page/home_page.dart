@@ -7,6 +7,7 @@ import 'package:flutter_trip/modal/HomeModel.dart';
 import 'package:flutter_trip/modal/SalesBoxModel.dart';
 import 'package:flutter_trip/widget/banner.dart';
 import 'package:flutter_trip/widget/grid_Nav.dart';
+import 'package:flutter_trip/widget/loading_widget.dart';
 import 'package:flutter_trip/widget/local_nav.dart';
 import 'package:flutter_trip/widget/sales_box.dart';
 import 'package:flutter_trip/widget/sub_nav.dart';
@@ -25,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   List<CommonModel> subNavList = [];
   GridNavModel gridNavModel;
   SalesBoxModel salesBoxModel;
-
+  bool isLoading = false;
   Future<HomeModel> fetch() async {
     Response response = await http.get(
         "https://www.easy-mock.com/mock/5d2ec0ee4f3b4f312eed7cb8/home_app");
@@ -43,6 +44,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    setState(() {
+      isLoading = true;
+    });
     fetch().then((HomeModel homeModelJson) {
       setState(() {
         homeModel = homeModelJson;
@@ -51,6 +55,7 @@ class _HomePageState extends State<HomePage> {
         subNavList = homeModelJson.subNavList;
         gridNavModel = homeModelJson.gridNav;
         salesBoxModel = homeModelJson.salesBox;
+        isLoading = false;
       });
     });
   }
@@ -60,30 +65,33 @@ class _HomePageState extends State<HomePage> {
     return MediaQuery.removePadding(
       removeTop: true,
       context: context,
-      child: Container(
-        decoration: BoxDecoration(color: Color(0xfff2f2f2)),
-        child: RefreshIndicator(
-          onRefresh: fetch,
-          child: ListView(
-            children: <Widget>[
-              BannerWidget(bannerList: bannerList),
-              Padding(
-                padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
-                child: LocalNav(localNavList: localNavList),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(7, 0, 7, 0),
-                child: GridNav(gridNavModel: gridNavModel),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(7, 0, 7, 0),
-                child: SubNav(subNavList: subNavList),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(7, 0, 7, 0),
-                child: SalesBox(salesBoxModel: salesBoxModel),
-              ),
-            ],
+      child: LoadWidget(
+        isLoading: isLoading,
+        child: Container(
+          decoration: BoxDecoration(color: Color(0xfff2f2f2)),
+          child: RefreshIndicator(
+            onRefresh: fetch,
+            child: ListView(
+              children: <Widget>[
+                BannerWidget(bannerList: bannerList),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                  child: LocalNav(localNavList: localNavList),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(7, 0, 7, 0),
+                  child: GridNav(gridNavModel: gridNavModel),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(7, 0, 7, 0),
+                  child: SubNav(subNavList: subNavList),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(7, 0, 7, 0),
+                  child: SalesBox(salesBoxModel: salesBoxModel),
+                ),
+              ],
+            ),
           ),
         ),
       ),
