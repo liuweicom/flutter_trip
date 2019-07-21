@@ -8,6 +8,8 @@ import 'package:flutter_trip/modal/SalesBoxModel.dart';
 import 'package:flutter_trip/widget/banner.dart';
 import 'package:flutter_trip/widget/grid_Nav.dart';
 import 'package:flutter_trip/widget/local_nav.dart';
+import 'package:flutter_trip/widget/sales_box.dart';
+import 'package:flutter_trip/widget/sub_nav.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
@@ -70,11 +72,17 @@ class _HomePageState extends State<HomePage> {
                 child: LocalNav(localNavList: localNavList),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(7, 4, 7, 4),
+                padding: EdgeInsets.fromLTRB(7, 0, 7, 0),
                 child: GridNav(gridNavModel: gridNavModel),
               ),
-
-              Text('我就看看',style: TextStyle(color: Colors.blue),)
+              Padding(
+                padding: EdgeInsets.fromLTRB(7, 0, 7, 0),
+                child: SubNav(subNavList: subNavList),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(7, 0, 7, 0),
+                child: SalesBox(salesBoxModel: salesBoxModel),
+              ),
             ],
           ),
         ),

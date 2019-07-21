@@ -52,7 +52,7 @@ class GridNav extends StatelessWidget {
     Color endColor = Color(int.parse("0xff" + gridNavItem.endColor));
     return Container(
       height: 88,
-      margin: isFirst ? EdgeInsets.only(top: 3) : null,
+      margin: isFirst ? null : EdgeInsets.only(top: 3),
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: [startColor, endColor]),
       ),
