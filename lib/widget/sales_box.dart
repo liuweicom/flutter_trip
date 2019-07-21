@@ -14,8 +14,13 @@ class SalesBox extends StatelessWidget {
       children: <Widget>[
         Container(
           height: 44,
+          padding: EdgeInsets.only(left: 10),
+          margin: EdgeInsets.only(top: 3),
           decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(width: 1, color: Color(0xfff2f2f2))),
+            // TODO 为什么添加了borderRadius这个child和border的内容都不见了
+//            borderRadius: BorderRadius.vertical(top: Radius.circular(6)),
+          color: Colors.red,
+          border: Border(bottom: BorderSide(width: 1, color: Color(0xfff2f2f2))),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,7 +88,7 @@ class SalesBox extends StatelessWidget {
         child: Image.network(
           card1.icon,
           height: isBig ? 129 : 80,
-          width: MediaQuery.of(context).size.width/2 -10,
+          width: MediaQuery.of(context).size.width/2 - 7.4,
           fit: BoxFit.fill,
         ),
       ),
