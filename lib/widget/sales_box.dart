@@ -19,7 +19,7 @@ class SalesBox extends StatelessWidget {
           decoration: BoxDecoration(
             // TODO 为什么添加了borderRadius这个child和border的内容都不见了
 //            borderRadius: BorderRadius.vertical(top: Radius.circular(6)),
-          color: Colors.red,
+          color: Colors.white,
           border: Border(bottom: BorderSide(width: 1, color: Color(0xfff2f2f2))),
           ),
           child: Row(
