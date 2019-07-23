@@ -120,7 +120,7 @@ class _SearchBarState extends State<SearchBar> {
     );
   }
 
-  _wrapTap(Widget child,  Function callback) {
+  _wrapTap(Widget child, Function callback) {
     return GestureDetector(
       onTap: () {
         if (callback != null) callback();
@@ -178,8 +178,7 @@ class _SearchBarState extends State<SearchBar> {
                           style: TextStyle(fontSize: 13, color: Colors.grey),
                         ),
                       ),
-                      widget.inputBoxClick
-              )),
+                      widget.inputBoxClick)),
           !showClear
               ? _wrapTap(
                   Icon(
