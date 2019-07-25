@@ -1,0 +1,35 @@
+apply plugin: 'com.android.library'
+
+
+android {
+    compileSdkVersion 28//这两个是必须要和自身的版本是确定的
+
+
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 28//这两个是必须要和自身的版本是确定的
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'//对应的这个版本也需要注意对应上
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.3.0-alpha02'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
+}
