@@ -42,6 +42,16 @@ class _SearchBarState extends State<SearchBar> {
         : _getHomeSearchBar();
   }
 
+  @override
+  void initState() {
+    if (widget.defaultText != null) {
+      setState(() {
+        _controller.text = widget.defaultText;
+      });
+    }
+    super.initState();
+  }
+
   _getHomeSearchBar() {
     return Container(
       child: Row(

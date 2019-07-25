@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_trip/dao/search_dao.dart';
 import 'package:flutter_trip/modal/search_modal.dart';
+import 'package:flutter_trip/page/speak_page.dart';
+import 'package:flutter_trip/util/navigator_util.dart';
 import 'package:flutter_trip/widget/search_bar.dart';
 
 const TYPES = [
@@ -58,6 +60,14 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
+   @override
+   void initState() {
+     if (widget.keyword != null) {
+       _onTextChange(widget.keyword);
+     }
+     super.initState();
+   }
+
   _appBar() {
     return Column(
       children: <Widget>[
@@ -92,12 +102,13 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   _jumpToSpeak() {
-  print('jumptoSpeak=======');
+  Navigator.pop(context);//页面要先跳出，再跳入新的页面
+  NavigatorUtil.push(
+      context,
+      SpeakPage());
   }
 
   _onTextChange(String s) {
-    print(s+'TextChange=========');
-
     if(s.length == 0){
       setState(() {
         searchModel = null;

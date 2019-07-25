@@ -46,4 +46,6 @@ app为你的工程名
 1.手动升级到androidX或者使用选择工程右键→Refactor→Migrate to Androidx...
 2.固定使用包的版本在不升级AndroidX之前的版本
 
+报错之：
+More than one file was found with OS independent path 'lib/x86/libflutter.so'
 

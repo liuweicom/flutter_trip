@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_trip/page/search_page.dart';
+import 'package:flutter_trip/plugin/asr_manager.dart';
+import 'package:flutter_trip/util/navigator_util.dart';
 const double MIC_SIZE = 80;
 
 class SpeakPage extends StatefulWidget {
@@ -7,9 +10,9 @@ class SpeakPage extends StatefulWidget {
 }
 
 class _SpeakPageState extends State<SpeakPage> with SingleTickerProviderStateMixin{
-  String speakResult;
+  String speakResult = "";
 
-  String speakTips;
+  String speakTips = '长按说话';
 
   Animation<double> animation;
   AnimationController controller;
@@ -131,13 +134,39 @@ class _SpeakPageState extends State<SpeakPage> with SingleTickerProviderStateMix
     );
   }
 
-  void _speakStart() {}
+  void _speakStart() {
+    controller.forward();
+    setState(() {
+      speakTips="- 识别中 -";
+    });
+    AsrManager.start().then((text){
+      if(text != null && text.length >0){
+      setState(() {
+        speakResult=text;
+      });
+      Navigator.pop(context);//页面要先跳出，再跳入新的页面
+      NavigatorUtil.push(
+          context,
+          SearchPage(
+            keyword: text,
+          ));
+    }
+    }).catchError((err){
+      print("err:-----------"+err.toString());
+    });
+  }
 
-  void _speakStop() {}
+  void _speakStop() {
+    setState(() {
+      speakTips = '长按说话';
+    });
+    controller.reset();
+    controller.stop();//停止动画
+  }
 }
 
 class AnimatedMic extends AnimatedWidget{
-  static final _opacityTween = Tween(begin: 1, end: 0.5);
+  static final _opacityTween = Tween(begin: 1.0, end: 0.5);
   static final _sizeTween = Tween(begin: MIC_SIZE, end: MIC_SIZE - 20);
   AnimatedMic({Key key,Animation<double> animation}):super(key: key,listenable: animation);
   @override

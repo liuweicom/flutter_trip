@@ -6,6 +6,7 @@ import 'package:flutter_trip/modal/GridNavModel.dart';
 import 'package:flutter_trip/modal/HomeModel.dart';
 import 'package:flutter_trip/modal/SalesBoxModel.dart';
 import 'package:flutter_trip/page/search_page.dart';
+import 'package:flutter_trip/page/speak_page.dart';
 import 'package:flutter_trip/util/navigator_util.dart';
 import 'package:flutter_trip/widget/banner.dart';
 import 'package:flutter_trip/widget/grid_Nav.dart';
@@ -166,6 +167,10 @@ class _HomePageState extends State<HomePage> {
 
   _jumpToSpeak() {
     print('jumptoSpeak');
+    NavigatorUtil.push(
+        context,
+        SpeakPage()
+    );
   }
 
   void _onScroll(double offset) {
