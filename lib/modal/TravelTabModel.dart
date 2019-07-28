@@ -1,11 +1,11 @@
-class TripTabModel {
+class TravelTabModel {
   String url;
   Map params;
   List<TravelTab> tabs;
 
-  TripTabModel({this.url, this.params, this.tabs});
+  TravelTabModel({this.url, this.params, this.tabs});
 
-  TripTabModel.fromJson(Map<String, dynamic> json) {
+  TravelTabModel.fromJson(Map<String, dynamic> json) {
     url = json['url'];
     params = json['params'];
     if (json['tabs'] != null) {

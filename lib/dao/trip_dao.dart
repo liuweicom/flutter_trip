@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter_trip/modal/TripModal.dart';
+import 'package:flutter_trip/modal/TravelModal.dart';
 import 'package:http/http.dart' as http;
 var params = {
   "contentType": "json",
@@ -23,6 +23,10 @@ var params = {
 
 class TripDao{
   static Future<TravelModel> fetch(String url,Map params, String groupChannelCode, int pageIndex, int pageSize) async{
+    Map pagePara = params['pagePara'];
+    pagePara['pageIndex'] = pageIndex;
+    pagePara['pageSize'] = pageSize;
+    params['groupChannelCode'] = groupChannelCode;
     final response = await http.post(url,body: jsonEncode(params));
     if(response.statusCode == 200){
       Utf8Decoder utf8Decoder= Utf8Decoder();
