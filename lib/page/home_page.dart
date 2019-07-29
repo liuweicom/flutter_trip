@@ -17,7 +17,7 @@ import 'package:flutter_trip/widget/search_bar.dart';
 import 'package:flutter_trip/widget/sub_nav.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-
+import 'package:flutter_splash_screen/flutter_splash_screen.dart';
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -64,6 +64,7 @@ class _HomePageState extends State<HomePage> {
         isLoading = false;
       });
     });
+    FlutterSplashScreen.hide();//关闭启动屏，启动屏幕不会自动关闭
   }
 
   @override
