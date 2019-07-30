@@ -52,6 +52,13 @@ class _SearchBarState extends State<SearchBar> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _controller.dispose();
+    super.dispose();
+  }
+
   _getHomeSearchBar() {
     return Container(
       child: Row(

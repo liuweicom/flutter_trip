@@ -11,7 +11,6 @@ class BannerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(this.bannerList);
     return Container(
       height: 160,
       decoration: BoxDecoration(color: Colors.white),
