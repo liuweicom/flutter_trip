@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_trip/modal/TravelModal.dart';
 import 'package:http/http.dart' as http;
+//param格式
 var params = {
   "contentType": "json",
   "districtId": -1,

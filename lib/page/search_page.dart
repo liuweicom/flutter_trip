@@ -20,8 +20,8 @@ const TYPES = [
   'ticket',
   'travelgroup'
 ];
-const URL = 'https://m.ctrip.com/restapi/h5api/searchapp/search?source=mobileweb&action=autocomplete&contentType=json&keyword=';
-
+const URL =
+    'https://m.ctrip.com/restapi/h5api/searchapp/search?source=mobileweb&action=autocomplete&contentType=json&keyword=';
 
 class SearchPage extends StatefulWidget {
   final bool hideLeft;
@@ -29,13 +29,15 @@ class SearchPage extends StatefulWidget {
   final String keyword;
   final String hint;
 
-  const SearchPage({Key key, this.hideLeft, this.searchUrl=URL, this.keyword, this.hint}) : super(key: key);
+  const SearchPage(
+      {Key key, this.hideLeft, this.searchUrl = URL, this.keyword, this.hint})
+      : super(key: key);
   @override
   _SearchPageState createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
-   SearchModel searchModel;
+  SearchModel searchModel;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,30 +45,28 @@ class _SearchPageState extends State<SearchPage> {
         children: <Widget>[
           _appBar(),
           MediaQuery.removePadding(
-              removeTop: true,
-              context: context,
-              child: Expanded(
+            removeTop: true,
+            context: context,
+            child: Expanded(
                 flex: 1,
-                  child: ListView.builder(
+                child: ListView.builder(
                     itemCount: searchModel?.data?.length ?? 0,
-                      itemBuilder: (BuildContext context, int position){
-                        return _item(position);
-                      }
-                  )
-              ),
+                    itemBuilder: (BuildContext context, int position) {
+                      return _item(position);
+                    })),
           ),
         ],
       ),
     );
   }
 
-   @override
-   void initState() {
-     if (widget.keyword != null) {
-       _onTextChange(widget.keyword);
-     }
-     super.initState();
-   }
+  @override
+  void initState() {
+    if (widget.keyword != null) {
+      _onTextChange(widget.keyword);
+    }
+    super.initState();
+  }
 
   _appBar() {
     return Column(
@@ -76,21 +76,18 @@ class _SearchPageState extends State<SearchPage> {
             gradient: LinearGradient(
                 colors: [Color(0x66000000), Colors.transparent],
                 begin: Alignment.topCenter,
-                end: Alignment.bottomCenter
-            ),
+                end: Alignment.bottomCenter),
           ),
           child: Container(
             padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
             height: 80,
-            decoration: BoxDecoration(
-                color: Colors.white
-            ),
+            decoration: BoxDecoration(color: Colors.white),
             child: SearchBar(
               speakClick: _jumpToSpeak,
               defaultText: widget.keyword ?? "",
               hideLeft: widget.hideLeft,
               hint: widget.hint ?? "",
-              leftButtonClick: (){
+              leftButtonClick: () {
                 Navigator.pop(context);
               },
               onChanged: _onTextChange,
@@ -102,43 +99,38 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   _jumpToSpeak() {
-  Navigator.pop(context);//页面要先跳出，再跳入新的页面
-  NavigatorUtil.push(
-      context,
-      SpeakPage());
+    Navigator.pop(context); //页面要先跳出，再跳入新的页面
+    NavigatorUtil.push(context, SpeakPage());
   }
 
   _onTextChange(String s) {
-    if(s.length == 0){
+    if (s.length == 0) {
       setState(() {
         searchModel = null;
       });
-      return ;
+      return;
     }
     String url = widget.searchUrl + s;
-    SearchDao.fetch(url, s).then((SearchModel model){
-      if(model.keyword == s){
+    SearchDao.fetch(url, s).then((SearchModel model) {
+      if (model.keyword == s) {
         setState(() {
           searchModel = model;
         });
       }
-    }).catchError((err){
+    }).catchError((err) {
       print(err);
     });
   }
 
   Widget _item(int index) {
-    if(searchModel == null || searchModel.data == null) return null;
+    if (searchModel == null || searchModel.data == null) return null;
     SearchItem item = searchModel.data[index];
     return GestureDetector(
-      onTap: (){
-
-      },
+      onTap: () {},
       child: Container(
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(width: 0.3,color: Colors.grey))
-        ),
+            border: Border(bottom: BorderSide(width: 0.3, color: Colors.grey))),
         child: Row(
           children: <Widget>[
             Container(
@@ -147,7 +139,7 @@ class _SearchPageState extends State<SearchPage> {
                   height: 26,
                   width: 26,
                   image: AssetImage(_typeImage(item.type))),
-              ),
+            ),
             Column(
               children: <Widget>[
                 Container(
@@ -168,54 +160,52 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   _title(SearchItem item) {
-    if(item == null){
+    if (item == null) {
       return null;
     }
     List<TextSpan> spans = [];
-    spans.addAll(_keywordTextSpans(item.word,searchModel.keyword));
+    spans.addAll(_keywordTextSpans(item.word, searchModel.keyword));
     spans.add(TextSpan(
-      text: " "+(item.districtname??'')+ " "+(item.zonename?? ""),
-      style: TextStyle(fontSize: 16,color: Colors.grey)
-    ));
-    return RichText(text: TextSpan(children: spans),);//List<TextSpan>无法作为一个组件，外面必须要包一层RichText
+        text: " " + (item.districtname ?? '') + " " + (item.zonename ?? ""),
+        style: TextStyle(fontSize: 16, color: Colors.grey)));
+    return RichText(
+      text: TextSpan(children: spans),
+    ); //List<TextSpan>无法作为一个组件，外面必须要包一层RichText
   }
 
   _subTitle(SearchItem item) {
     return RichText(
-      text: TextSpan(
-          children: [
-            TextSpan(
-              text: item.price??'',
-              style: TextStyle(fontSize: 16, color: Colors.orange),
-            ),
-            TextSpan(
-              text: ' ' + (item.star ?? ''),
-              style: TextStyle(fontSize: 12, color: Colors.grey),
-            )
-          ]
-      ),
+      text: TextSpan(children: [
+        TextSpan(
+          text: item.price ?? '',
+          style: TextStyle(fontSize: 16, color: Colors.orange),
+        ),
+        TextSpan(
+          text: ' ' + (item.star ?? ''),
+          style: TextStyle(fontSize: 12, color: Colors.grey),
+        )
+      ]),
     );
   }
 
   Iterable<TextSpan> _keywordTextSpans(String word, String keyword) {
     List<TextSpan> spans = [];
-    if(word == null || word.length == 0)return spans;
+    if (word == null || word.length == 0) return spans;
     //搜索关键字高亮忽略大小
-    String wordL = word.toLowerCase(),keywordL = keyword.toLowerCase();
+    String wordL = word.toLowerCase(), keywordL = keyword.toLowerCase();
     List<String> arr = wordL.split(keywordL);
     TextStyle normalStyle = TextStyle(fontSize: 16, color: Colors.black87);
     TextStyle keyWordStyle = TextStyle(fontSize: 16, color: Colors.orange);
     int preIndex = 0;
-    for(int i = 0; i<arr.length;i++){
-      if(i != 0){
+    for (int i = 0; i < arr.length; i++) {
+      if (i != 0) {
         preIndex = wordL.indexOf(keywordL, preIndex);
         spans.add(TextSpan(
-          text: word.substring(preIndex,preIndex+keyword.length),
-          style: keyWordStyle
-        ));
+            text: word.substring(preIndex, preIndex + keyword.length),
+            style: keyWordStyle));
       }
       String val = arr[i];
-      if(val != null && val.length >0){
+      if (val != null && val.length > 0) {
         spans.add(TextSpan(text: val, style: normalStyle));
       }
     }
@@ -223,10 +213,10 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   String _typeImage(String type) {
-    if(type == null) return 'assert/image/type_travelgroup.png';
+    if (type == null) return 'assert/image/type_travelgroup.png';
     String path = 'travelgroup';
-    for(final val in TYPES){
-      if(type.contains(val)){
+    for (final val in TYPES) {
+      if (type.contains(val)) {
         path = val;
         break;
       }

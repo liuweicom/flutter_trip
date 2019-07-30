@@ -12,7 +12,7 @@ class SearchDao{
       model.keyword = text;
       return model;
     }else{
-      throw Exception('Failed to load home_page.json');
+      throw Exception('Failed to load search');
     }
   }
 }
